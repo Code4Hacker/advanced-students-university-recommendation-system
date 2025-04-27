@@ -2,11 +2,8 @@ import PageMeta from "../../components/common/PageMeta";
 import { Link } from "react-router";
 import DashboardCard from "../../components/programmes/DashboardCard";
 import HomeTable from "../../components/tables/BasicTables/HomeTable";
-import { useEffect } from "react";
-import useProgrammes from "../../hooks/useProgrammes";
 
 export default function Home() {
-  useProgrammes(6);
   return (
     <>
       <PageMeta

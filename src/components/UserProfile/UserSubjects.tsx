@@ -3,59 +3,45 @@ import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
+import { useEffect, useState } from "react";
 
-export default function UserAddressCard() {
+export default function UserSubjects() {
   const { isOpen, openModal, closeModal } = useModal();
   const handleSave = () => {
     // Handle save logic here
     console.log("Saving changes...");
     closeModal();
   };
+  const store = window.localStorage.getItem("subjects");
+  const [subjects, setSubjects] = useState([{ subject: "Unknow", grade: "N" },{ subject: "Unknow", grade: "N" },{ subject: "Unknow", grade: "N" }, ]);
+
+  useEffect(() => {
+    if (store) {
+      const studentData = JSON.parse(store);
+      setSubjects(studentData);
+    }
+  }, [store]);
   return (
     <>
       <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <h4 className="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6">
-              Address
+              Subjects
             </h4>
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Country
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  United States.
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  City/State
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  Phoenix, Arizona, United States.
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Postal Code
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  ERT 2489
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  TAX ID
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  AS4568384
-                </p>
-              </div>
+              {
+                subjects.map((subject, key) => 
+                  <div key={key}>
+                    <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                      Subject {key+1}
+                    </p>
+                    <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                      {subject.subject} ( {subject.grade} )
+                    </p>
+                  </div>)
+              }
             </div>
           </div>
 
@@ -86,7 +72,7 @@ export default function UserAddressCard() {
         <div className="relative w-full p-4 overflow-y-auto bg-white no-scrollbar rounded-3xl dark:bg-gray-900 lg:p-11">
           <div className="px-2 pr-14">
             <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              Edit Address
+              Edit Subjects
             </h4>
             <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
               Update your details to keep your profile up-to-date.
@@ -94,25 +80,33 @@ export default function UserAddressCard() {
           </div>
           <form className="flex flex-col">
             <div className="px-2 overflow-y-auto custom-scrollbar">
-              <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                <div>
-                  <Label>Country</Label>
-                  <Input type="text" value="United States" />
-                </div>
-
-                <div>
-                  <Label>City/State</Label>
-                  <Input type="text" value="Arizona, United States." />
-                </div>
-
-                <div>
-                  <Label>Postal Code</Label>
-                  <Input type="text" value="ERT 2489" />
-                </div>
-
-                <div>
-                  <Label>TAX ID</Label>
-                  <Input type="text" value="AS4568384" />
+              <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-1">
+                <div className="space-y-4">
+                  <Label>Form Six Subjects <span className="text-error-500">*</span></Label>
+                  {subjects.map((subject, index) => (
+                    <div key={index} className="grid grid-cols-2 gap-4">
+                      <Input
+                        placeholder={`Subject ${index + 1}`}
+                        value={subject.subject}
+                        onChange={(e) =>{}
+                        }
+                      />
+                      <select
+                        value={subject.grade}
+                        onChange={(e) =>{
+                          
+                        }}
+                        className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700"
+                      >
+                        <option value="">Select Grade</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                      </select>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

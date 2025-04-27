@@ -1,5 +1,5 @@
 // SignInForm.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../icons";
@@ -113,7 +113,13 @@ export default function SignInForm() {
       setError("Failed to fetch eligible courses");
     }
   };
-
+  const store = window.localStorage.getItem("subjects");
+  const navigation  = useNavigate();
+  useEffect(() => {
+    if (store) {
+      navigation("/dashboard")
+    }
+  },[]);
   return (
     <div className="flex flex-col flex-1">
       <div className="w-full max-w-md pt-10 mx-auto">
@@ -259,8 +265,8 @@ export default function SignInForm() {
                   {loading
                     ? "Processing..."
                     : isNewStudent
-                    ? "Register"
-                    : "Sign in"}
+                      ? "Register"
+                      : "Sign in"}
                 </Button>
               </div>
             </div>

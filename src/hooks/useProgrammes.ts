@@ -56,11 +56,13 @@ interface UseProgrammesReturn {
   applyFilter: (filterType: 'default' | 'grades' | 'custom') => void;
   resetFilters: () => void;
   handleCustomSubmit: (customCourses: UniversityProgram[], customPagination: Pagination) => void;
+  applyLocalFilter: (programmes: UniversityProgram[], filterType: string, subjects: StudentSubjects[]) => void;
 }
 
 const useProgrammes = (initialPerPage: number = 10): UseProgrammesReturn => {
   const [programmes, setProgrammes] = useState<UniversityProgram[]>([]);
   const [filteredProgrammes, setFilteredProgrammes] = useState<UniversityProgram[]>([]);
+  const [availableUn, setAvailableUn] = useState(0);
   const [pagination, setPagination] = useState<Pagination>({
     total: 0,
     per_page: initialPerPage,
@@ -133,8 +135,8 @@ const useProgrammes = (initialPerPage: number = 10): UseProgrammesReturn => {
         acc[curr.subject] = curr.grade;
         return acc;
     }, {} as Record<string, string>);
-
-    return programmes.filter(programme => {
+    
+    let v =  programmes.filter(programme => {
       
         return programme.specific_requirements.every(req => {
             const studentGrade = subjectMap[req.subject];
@@ -145,6 +147,15 @@ const useProgrammes = (initialPerPage: number = 10): UseProgrammesReturn => {
         ...programme,
         match_score: calculateMatchScore(programme, subjects)
     })).sort((a, b) => (b.match_score || 0) - (a.match_score || 0));
+    
+    localStorage.setItem("eligible_courses", JSON.stringify(filteredProgrammes));
+    localStorage.setItem("summary", JSON.stringify({
+        eligible: filteredProgrammes.length,
+        available_university: new Set(filteredProgrammes.map(p => p.universityAbbr)).size,
+        available_courses: availableUn || filteredProgrammes.length
+    }));
+    console.log("inside Filter")
+    return v;
 }, [calculateMatchScore]);
 
 const fetchProgrammes = useCallback(async (page: number = 1, filter: 'default' | 'grades' | 'custom' = 'default') => {
@@ -179,6 +190,7 @@ const fetchProgrammes = useCallback(async (page: number = 1, filter: 'default' |
       setFilteredProgrammes(processedProgrammes);
 
       if (response.data.pagination) {
+        setAvailableUn(response.data.pagination.total);
           setPagination({
               total: response.data.pagination.total,
               per_page: response.data.pagination.per_page,
@@ -213,6 +225,7 @@ const fetchProgrammes = useCallback(async (page: number = 1, filter: 'default' |
     const filtered = applyLocalFilter(programmes, filterType, studentSubjects);
     setFilteredProgrammes(filtered);
     setCurrentFilter(filterType);
+    
   }, [programmes, studentSubjects, applyLocalFilter]);
 
   const resetFilters = useCallback(() => {
@@ -237,7 +250,8 @@ const fetchProgrammes = useCallback(async (page: number = 1, filter: 'default' |
     fetchProgrammes,
     applyFilter,
     resetFilters,
-    handleCustomSubmit
+    handleCustomSubmit,
+    applyLocalFilter
   };
 };
 

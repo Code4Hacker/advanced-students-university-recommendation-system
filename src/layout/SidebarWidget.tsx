@@ -9,6 +9,7 @@ export default function SidebarWidget() {
       <Link
         to="/"
         className="flex items-center justify-center p-3 font-medium text-white rounded-lg bg-brand-500 text-theme-sm hover:bg-brand-600"
+        onClick={() => window.localStorage.clear()}
       >
         Sign Out
       </Link>
