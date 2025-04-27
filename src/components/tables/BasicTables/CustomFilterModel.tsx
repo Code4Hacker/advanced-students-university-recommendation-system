@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../../baseURL/base_url';
-import { Pagination, UniversityProgram } from '../../../hooks/useProgrammes';
+// import { Pagination, UniversityProgram } from '../../../hooks/useProgrammes';
 interface CustomFilterModalProps {
     onClose: () => void;
-    onSubmit: (courses: UniversityProgram[], pagination: Pagination) => void;
+    onSubmit: (courses: any[], pagination: any) => void;
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
   }

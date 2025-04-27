@@ -8,7 +8,7 @@ import {
 import Badge from "../../ui/badge/Badge";
 import { ChevronUpIcon } from "../../../icons";
 import { useEffect, useState } from "react";
-import { UniversityProgram } from "../../../hooks/useProgrammes";
+// import { UniversityProgram } from "../../../hooks/useProgrammes";
 import axios from "axios";
 import { baseURL } from "../../../baseURL/base_url";
 import { useNavigate, Link } from "react-router";
@@ -18,7 +18,7 @@ interface ShowHeader {
 }
 
 const HomeTable: React.FC<ShowHeader> = ({ header }) => {
-  const [programmes, setProgrammes] = useState<UniversityProgram[]>([]);
+  const [programmes, setProgrammes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -109,13 +109,13 @@ const HomeTable: React.FC<ShowHeader> = ({ header }) => {
                                               {`${programme.course} (${programme.courseAbbr})`}
                                           </span>
                                           <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                                              {programme.college}
+                                              {programme.university}
                                           </span>
                                       </div>
                                   </div>
                               </TableCell>
                               <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                                  {programme.specific_requirements.map((requirement, i) => (
+                                  {programme.specific_requirements.map((requirement : any, i: any) => (
                                       <span key={i} className={i % 2 !== 0 ? "text-indigo-500" : ""}>
                                           {`${requirement.subject}(${requirement.grade})${i < programme.specific_requirements.length - 1 ? "," : ""} `}
                                       </span>
