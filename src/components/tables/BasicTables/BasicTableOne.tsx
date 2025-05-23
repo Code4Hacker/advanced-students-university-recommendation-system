@@ -35,7 +35,7 @@ const BasicTableOne: React.FC<ShowHeader> = ({ header, splice, role }) => {
     showCustomModal,
     setShowCustomModal,
     fetchProgrammes,
-    applyFilter,
+    // applyFilter,
     handleCustomSubmit
   } = useProgrammes(6);
 
@@ -139,7 +139,7 @@ const BasicTableOne: React.FC<ShowHeader> = ({ header, splice, role }) => {
                 </button>
                 {role !== "ADMIN" && <button
                   onClick={() => {
-                    applyFilter('grades');
+                    fetchProgrammes(1,'grades', 100);
                     setFilterOpen(false);
                   }}
                   className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
@@ -186,8 +186,8 @@ const BasicTableOne: React.FC<ShowHeader> = ({ header, splice, role }) => {
           )}
 
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {filteredProgrammes.length > 0 ? (
-              filteredProgrammes.map((programme) => (
+            {programmes.length > 0 ? (
+              programmes.map((programme) => (
                 <TableRow key={programme.courseAbbr}>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <div className="flex items-center gap-3">

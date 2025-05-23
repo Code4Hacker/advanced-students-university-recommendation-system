@@ -17,11 +17,12 @@ export const useProgrammes = (initialPerPage: number = 10) => {
   const [studentSubjects, setStudentSubjects] = useState<any[] | null>(null);
   const [showCustomModal, setShowCustomModal] = useState(false);
 
-  const fetchProgrammes = useCallback(async (page = 1, filter = 'default') => {
+  const fetchProgrammes = useCallback(
+  async (page = 1, filter: 'default' | 'grades' | 'custom' = 'default', initialPerPage = 6) => {
     try {
       setLoading(true);
       const student = JSON.parse(localStorage.getItem('student') || '{}');
-      
+
       const response = await axios.get(`${baseURL}/api/general-requests.php`, {
         params: {
           action: 'get_courses',
@@ -31,30 +32,29 @@ export const useProgrammes = (initialPerPage: number = 10) => {
           per_page: initialPerPage
         }
       });
-
       if (response.data.success) {
         console.log(response.data.courses)
         setProgrammes(response.data.courses);
-        setFilteredProgrammes(filter === 'grades' 
-          ? response.data.courses.filter((c: any) => c.eligible)
-          : response.data.courses
-        );
         setPagination(response.data.pagination);
+        setCurrentFilter(filter);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch programmes');
     } finally {
       setLoading(false);
     }
-  }, [initialPerPage]);
+  },
+  [initialPerPage]
+);
 
-  const applyFilter = useCallback((filterType: 'default' | 'grades' | 'custom') => {
-    setCurrentFilter(filterType);
-    setFilteredProgrammes(filterType === 'grades' 
-      ? programmes.filter(c => c.eligible)
-      : programmes
-    );
-  }, [programmes]);
+
+  // const applyFilter = useCallback((filterType: 'default' | 'grades' | 'custom') => {
+  //   setCurrentFilter(filterType);
+  //   setFilteredProgrammes(filterType === 'grades' 
+  //     ? programmes.filter(c => c.eligible)
+  //     : programmes
+  //   );
+  // }, [programmes]);
 
   const handleCustomSubmit = useCallback((customCourses: any[], customPagination: any) => {
     setProgrammes(customCourses);
@@ -78,7 +78,7 @@ export const useProgrammes = (initialPerPage: number = 10) => {
     showCustomModal,
     setShowCustomModal,
     fetchProgrammes,
-    applyFilter,
+    // applyFilter,
     handleCustomSubmit
   };
 };

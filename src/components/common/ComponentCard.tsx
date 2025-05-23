@@ -56,7 +56,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
           </h3>
           <div className="hidden lg:block">
             <form>
-              <div className="relative">
+              {/* <div className="relative">
                 <span className="absolute -translate-y-1/2 pointer-events-none left-0 top-1/2">
                   
                 </span>
@@ -84,7 +84,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
                     />
                   </svg>
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
           {/* <div className="filters">

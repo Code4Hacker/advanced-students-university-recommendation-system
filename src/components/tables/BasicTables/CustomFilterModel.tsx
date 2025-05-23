@@ -40,7 +40,7 @@ const CustomFilterModal: React.FC<CustomFilterModalProps> = ({
           grade: s.grade
         })),
         page: 1,
-        per_page: 6 
+        per_page: 100 
       });
 
       if (response.data.success) {
