@@ -15,9 +15,10 @@ import { useNavigate, Link } from "react-router";
 
 interface ShowHeader {
   header?: boolean,
+  role?: string
 }
 
-const HomeTable: React.FC<ShowHeader> = ({ header }) => {
+const HomeTable: React.FC<ShowHeader> = ({ header, role }) => {
   const [programmes, setProgrammes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -121,11 +122,13 @@ const HomeTable: React.FC<ShowHeader> = ({ header }) => {
                                       </span>
                                   ))}
                               </TableCell>
-                              <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                              {
+                                role !== "ADMIN" && <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                                   <Badge size="sm" color="success">
                                       Eligible
                                   </Badge>
                               </TableCell>
+                              }
                               <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                                   <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
                                       {programme.minimum_points}

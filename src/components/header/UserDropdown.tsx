@@ -34,7 +34,7 @@ export default function UserDropdown() {
     <div className="relative">
 
 
-      <button
+      <div
         onClick={toggleDropdown}
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
@@ -79,7 +79,7 @@ export default function UserDropdown() {
             strokeLinejoin="round"
           />
         </svg>
-      </button>
+      </div>
 
       <Dropdown
         isOpen={isOpen}

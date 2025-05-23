@@ -71,12 +71,9 @@ export default function ProjectSlug() {
               }</h1>
               
         </div>
-        <div className="bprogramme-t bprogramme-gray-100 dark:bprogramme-gray-800 pt-4">
-          <span className="block text-gray-500 text-theme-sm dark:text-white/90">{"programme.description"}</span>
-        </div>
         <div className="c_grid bprogramme-t bprogramme-gray-100 dark:bprogramme-gray-800 pt-8 pl-2 pr-2">
           <h1 className="header-more">Explore More Eligible <br /> <span>Programmes for you</span></h1>
-          <Link to={'/tasks/basic-tables'} >
+          <Link to={'/basic-tables'} >
             <span className=" text-blue-700">view all</span>
           </Link>
         </div>

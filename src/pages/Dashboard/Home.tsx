@@ -2,8 +2,18 @@ import PageMeta from "../../components/common/PageMeta";
 import { Link } from "react-router";
 import DashboardCard from "../../components/programmes/DashboardCard";
 import HomeTable from "../../components/tables/BasicTables/HomeTable";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+   const [role, setRole] = useState("USER");
+  
+    useEffect(() => {
+      const store = localStorage.getItem("student");
+      if (store) {
+        setRole((JSON.parse(store)).role);
+      }
+  
+    });
   return (
     <>
       <PageMeta
@@ -23,7 +33,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="col-span-12 xl:col-span-12">
-          <HomeTable header={true} />
+          <HomeTable header={true} role={role} />
         </div>
 
         {/* <div className="col-span-12 xl:col-span-7">

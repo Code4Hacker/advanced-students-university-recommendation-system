@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { createContext, useState, useContext, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 type Theme = "light" | "dark";
 
@@ -44,6 +45,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <Toaster/>
       {children}
     </ThemeContext.Provider>
   );

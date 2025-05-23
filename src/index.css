@@ -811,7 +811,7 @@ span.flatpickr-weekday,
 }
 
 .more_btn{
-  background-color: rgba(65, 105, 225, 0.696) !important;
+  background-color: rgba(65, 105, 225, 0.696);
   padding: 12px;
   transition: .4s ease-in-out;
   font-size: small;
@@ -820,7 +820,7 @@ span.flatpickr-weekday,
   border-radius:50px;
 }
 .more_btn:hover{
-  background-color: royalblue !important;
+  background-color: rgb(65, 105, 225);
   padding: 12px;
   transition: .4s ease-in-out;
   font-size: small;
@@ -841,4 +841,16 @@ span.flatpickr-weekday,
 }
 h1{
   @apply text-black dark:text-gray-400
+}
+.danger{
+  background-color: rgba(255, 0, 0, 0.711);
+}
+.danger:hover{
+  background-color: rgb(255, 0, 0);
+}
+.green{
+  background-color: rgba(58, 185, 119, 0.818);
+}
+.green:hover{
+  background-color: rgb(58, 181, 185);
 }

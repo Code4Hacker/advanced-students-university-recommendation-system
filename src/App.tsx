@@ -18,10 +18,12 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import ProjectSlug from "./components/slugs/ProjectSlug";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   return (
     <>
+    <Toaster/>
       <Router>
         <ScrollToTop />
         <Routes>
@@ -40,7 +42,7 @@ export default function App() {
             {/* Tables */}
             <Route path="/basic-tables" element={<BasicTables />} />
             {/* Slug */}
-            <Route path="/one-project/:id" element={<ProjectSlug />} />
+            <Route path="/programmes/:id" element={<ProjectSlug />} />
 
             {/* Ui Elements */}
             <Route path="/alerts" element={<Alerts />} />
